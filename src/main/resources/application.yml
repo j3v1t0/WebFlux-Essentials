@@ -1,0 +1,7 @@
+spring:
+  main:
+    banner-mode: off
+  r2dbc:
+    username: postgres
+    password: postgres
+    url: r2dbc:postgresql://locahost:5434/cashnow?schema=anime
