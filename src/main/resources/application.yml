@@ -4,4 +4,4 @@ spring:
   r2dbc:
     username: postgres
     password: postgres
-    url: r2dbc:postgresql://locahost:5434/cashnow?schema=anime
+    url: r2dbc:postgresql://localhost:5434/cashnow?schema=anime
