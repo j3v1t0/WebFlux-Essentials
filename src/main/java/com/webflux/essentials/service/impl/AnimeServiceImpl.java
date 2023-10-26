@@ -11,6 +11,8 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Slf4j
 public class AnimeServiceImpl implements AnimeService {
@@ -25,6 +27,20 @@ public class AnimeServiceImpl implements AnimeService {
     public Mono<Anime> findByUuid(String uuid) {
         return animeRespository.findByUuid(uuid)
                 .switchIfEmpty(monoResponseStatusNotFoundException());
+    }
+
+    @Override
+    public Mono<Anime> save(Anime anime) {
+        String uuid = UUID.randomUUID().toString();
+        anime.setUuid(uuid);
+        return animeRespository.save(anime);
+    }
+
+    @Override
+    public Mono<Void> update(Anime anime) {
+        return findByUuid(anime.getUuid())
+                .flatMap(animeRespository::save)
+                .thenEmpty(Mono.empty());
     }
 
     public <T> Mono<T> monoResponseStatusNotFoundException(){

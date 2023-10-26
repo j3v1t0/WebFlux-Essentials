@@ -5,20 +5,20 @@ import com.webflux.essentials.repository.AnimeRespository;
 import com.webflux.essentials.service.AnimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+import java.util.UUID;
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("animes")
 @Slf4j
 public class AnimeController {
-    @Autowired
-    private AnimeService animeService;
+
+    private final AnimeService animeService;
 
     @GetMapping
     public Flux<Anime> listAll(){
@@ -28,5 +28,11 @@ public class AnimeController {
     @GetMapping( "{uuid}")
     public Mono<Anime> findByUuid(@PathVariable String uuid){
         return animeService.findByUuid(uuid);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<Anime> save(@Valid @RequestBody Anime anime) {
+        return animeService.save(anime);
     }
 }

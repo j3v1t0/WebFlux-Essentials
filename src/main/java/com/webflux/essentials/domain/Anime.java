@@ -6,14 +6,15 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @With
 @Table("anime")
 public class Anime {
-    @Id
     private String uuid;
     @NotNull
     @NotEmpty(message = "The name of the anime cannot be empty")
