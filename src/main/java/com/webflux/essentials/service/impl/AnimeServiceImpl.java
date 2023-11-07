@@ -37,11 +37,12 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     public Mono<Anime> update(Anime anime) {
         return animeRespository.findById(anime.getUuid())
+                .switchIfEmpty(monoResponseStatusNotFoundException())
                 .map((c) -> {
                     c.setName(anime.getName());
                     return c;
                 })
-                .flatMap( c -> animeRespository.save(c));
+                .flatMap(animeRespository::save);
 
     }
 

@@ -40,4 +40,5 @@ public class AnimeController {
     public Mono<Anime> update(@Valid @RequestBody Anime anime) {
         return animeService.update(anime);
     }
+
 }
