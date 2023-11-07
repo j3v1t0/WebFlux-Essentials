@@ -26,7 +26,7 @@ public class AnimeController {
     }
 
     @GetMapping( "{uuid}")
-    public Mono<Anime> findByUuid(@PathVariable String uuid){
+    public Mono<Anime> findByUuid(@PathVariable UUID uuid){
         return animeService.findByUuid(uuid);
     }
 
@@ -34,5 +34,10 @@ public class AnimeController {
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<Anime> save(@Valid @RequestBody Anime anime) {
         return animeService.save(anime);
+    }
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<Anime> update(@Valid @RequestBody Anime anime) {
+        return animeService.update(anime);
     }
 }

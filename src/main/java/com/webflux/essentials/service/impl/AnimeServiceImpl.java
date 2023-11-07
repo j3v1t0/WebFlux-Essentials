@@ -24,23 +24,25 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public Mono<Anime> findByUuid(String uuid) {
-        return animeRespository.findByUuid(uuid)
+    public Mono<Anime> findByUuid(UUID uuid) {
+        return animeRespository.findById(uuid)
                 .switchIfEmpty(monoResponseStatusNotFoundException());
     }
 
     @Override
     public Mono<Anime> save(Anime anime) {
-        String uuid = UUID.randomUUID().toString();
-        anime.setUuid(uuid);
         return animeRespository.save(anime);
     }
 
     @Override
-    public Mono<Void> update(Anime anime) {
-        return findByUuid(anime.getUuid())
-                .flatMap(animeRespository::save)
-                .thenEmpty(Mono.empty());
+    public Mono<Anime> update(Anime anime) {
+        return animeRespository.findById(anime.getUuid())
+                .map((c) -> {
+                    c.setName(anime.getName());
+                    return c;
+                })
+                .flatMap( c -> animeRespository.save(c));
+
     }
 
     public <T> Mono<T> monoResponseStatusNotFoundException(){

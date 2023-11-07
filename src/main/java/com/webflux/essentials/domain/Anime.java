@@ -15,7 +15,8 @@ import java.util.UUID;
 @With
 @Table("anime")
 public class Anime {
-    private String uuid;
+    @Id
+    private UUID uuid;
     @NotNull
     @NotEmpty(message = "The name of the anime cannot be empty")
     private String name;
