@@ -55,7 +55,7 @@ public class AnimeServiceImpl implements AnimeService {
                 .retryWhen(catchingQueryTimeoutException).log()
                 .checkpoint();
     }
-
+//
     public <T> Mono<T> monoResponseStatusNotFoundException(){
         return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,"Anime not found"));
     }
