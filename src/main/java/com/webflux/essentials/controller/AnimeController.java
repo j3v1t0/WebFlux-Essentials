@@ -35,6 +35,7 @@ public class AnimeController {
     public Mono<Anime> save(@Valid @RequestBody Anime anime) {
         return animeService.save(anime);
     }
+
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<Anime> update(@Valid @RequestBody Anime anime) {

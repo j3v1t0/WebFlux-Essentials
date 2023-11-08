@@ -6,6 +6,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Data
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Builder
 @With
 @Table("anime")
-public class Anime {
+public class Anime implements Serializable {
     @Id
     private UUID uuid;
     @NotNull
